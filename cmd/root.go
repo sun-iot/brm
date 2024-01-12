@@ -4,9 +4,10 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"github.com/sun-iot/brm/internal/config"
-	"github.com/sun-iot/brm/internal/util"
+	"github.com/sun-iot/brm/util"
 	"os"
 	"path/filepath"
 )
@@ -44,6 +45,7 @@ func initBrm() {
 	// 首先，需要初始化一个文件目录
 	path, err := util.GetHomePath()
 	if err != nil {
+		color.Red("无法获取用户目录: %v", err.Error())
 		os.Exit(1)
 	}
 
@@ -52,10 +54,12 @@ func initBrm() {
 	if !util.IsDirExist(brmPath) {
 		// 不存在这个目录，就需要去创建
 		if err := os.MkdirAll(brmPath, 0755); err != nil {
+			color.Red("无法初始化文件目录: %v", err.Error())
 			os.Exit(1)
 		}
 		// 这里需要去构建出,将程序内置的配置提供出来 config.yaml
 		if err := config.InitLoadConfig(brmPath); err != nil {
+			color.Red("无法初始化配置: %v", err.Error())
 			os.Exit(1)
 		}
 
@@ -65,11 +69,13 @@ func initBrm() {
 		if !util.IsDirExist(cfgPath) {
 			// 这里需要去构建出,将程序内置的配置提供出来 config.yaml
 			if err := config.InitLoadConfig(brmPath); err != nil {
+				color.Red("无法初始化配置: %v", err.Error())
 				os.Exit(1)
 			}
 		} else {
 			// 这里直接根据当前的配置项去获取到配置
 			if err := config.LoadConfig(cfgPath); err != nil {
+				color.Red("无法加载配置: %v", err.Error())
 				os.Exit(1)
 			}
 		}

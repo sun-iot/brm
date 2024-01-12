@@ -44,7 +44,7 @@ func InitLoadConfig(defaultPath string) error {
 		return fmt.Errorf("无法解析默认的配置文件: %v", err)
 	}
 	// 将当前的默认的配置文件写入到 默认的文件目录里面去
-	if err := os.WriteFile(filepath.Join(defaultConfig, ".brm.yaml"), []byte(defaultConfig), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(defaultPath, ".brm.yaml"), []byte(defaultConfig), 0644); err != nil {
 		return fmt.Errorf("无法去初始化配置: %v", err)
 	}
 
@@ -68,28 +68,28 @@ func GetCurrentSourceConfig() (Source, error) {
 var defaultConfig = `
 sources:
   - name: official
-    displatName: "官方源"
+    displayName: "官方源"
     brewGit: "https://github.com/Homebrew/brew.git"
     coreGit: "https://github.com/Homebrew/homebrew-core.git"
     caskGit: https://github.com/Homebrew/homebrew-cask.git
     bottleDomain: https://homebrew.bintray.com
 
   - name: aliyun
-    displatName: "阿里云"
+    displayName: "阿里云"
     brewGit: "https://mirrors.aliyun.com/homebrew/brew.git"
     coreGit: "https://mirrors.aliyun.com/homebrew/homebrew-core.git"
     caskGit: "https://mirrors.aliyun.com/homebrew/homebrew-cask.git"
     bottleDomain: "https://mirrors.aliyun.com/homebrew/homebrew-bottles"
 
   - name: tsinghua
-    displatName: "清华源"
+    displayName: "清华源"
     brewGit: "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
     coreGit: "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
     caskGit: "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git"
     bottleDomain: "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 
   - name: ustc
-    displatName: "科大源"
+    displayName: "科大源"
     brewGit: "https://mirrors.ustc.edu.cn/brew.git"
     coreGit: "https://mirrors.ustc.edu.cn/homebrew-core.git"
     caskGit: "https://mirrors.ustc.edu.cn/homebrew-cask.git"
